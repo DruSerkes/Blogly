@@ -21,6 +21,8 @@ class User(db.Model):
 
     image_url = db.Column(db.String, default=None)
 
+    # posts = db.relationship('Post', cascade='all, delete')
+
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
 
@@ -35,7 +37,7 @@ class Post(db.Model):
 
     content = db.Column(db.String, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
 
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=db.func.now())

@@ -20,7 +20,7 @@ db.create_all()
 def home():
     return redirect('/users')
 
-
+# USER ROUTES 
 @app.route('/users')
 def list_users():
     """ Show list of users """
@@ -89,14 +89,17 @@ def delete_user(user_id):
     return redirect('/users')
 
 
+# BLOG POST ROUTES 
 @app.route('/users/<int:user_id>/posts/new')
 def create_post_form(user_id):
+    """ Display form to create a post """ 
     user = User.query.get_or_404(user_id)
     return render_template('add_post.html', user=user)
 
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
 def create_post(user_id):
+    """ Create a post and redirect to user page """
     title = request.form['title']
     content = request.form['content']
 
