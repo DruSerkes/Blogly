@@ -19,7 +19,11 @@ db.create_all()
 
 @app.route('/')
 def home():
-    return redirect('/users')
+    posts = Post.query.all()
+    posts = posts[-5:]
+
+    users = User.query.all()
+    return render_template('/home.html', posts=posts, users=users)
 
 # USER ROUTES 
 @app.route('/users')

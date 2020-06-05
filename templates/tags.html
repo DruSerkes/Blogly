@@ -4,14 +4,16 @@
 
 {% block content %}
 
-<h2 class="h2">Tags</h2>
+<h2 class="display-2">Tags</h2>
 {% if tags %}
 <div class="container my-3">
-    <ul class='list-group'>
-        {% for tag in tags %}
-        <li class="list-group-item"><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="row justify-content-center">
+        <ul class='list-group col-8 col-md-4'>
+            {% for tag in tags %}
+            <li class="list-group-item"><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 
 {% endif %}
