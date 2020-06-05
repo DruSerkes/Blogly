@@ -1,14 +1,16 @@
 """ Seed file to make sample data for pets db """
 
-from models import User, Post, db
+from models import User, Post, Tag, db
 from app import app
 
 # Create all tables
 db.drop_all()
 db.create_all()
 
-# If table isn’t empty, empty it
+# If tables aren’t empty, empty them
 User.query.delete()
+Post.query.delete()
+Tag.query.delete()
 
 # Add users
 alan = User(first_name='Alan', last_name='Alda')
@@ -45,4 +47,16 @@ db.session.add(joel_post)
 db.session.add(jane_post)
 
 # Commit
+db.session.commit()
+
+
+# Add Tags 
+tag1 = Tag(name='Animals')
+tag2 = Tag(name='Bird')
+tag3 = Tag(name='West Wing')
+
+db.session.add(tag1)
+db.session.add(tag2)
+db.session.add(tag3)
+
 db.session.commit()
