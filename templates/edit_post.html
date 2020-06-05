@@ -14,6 +14,15 @@
                 <label for="content">Content</label>
                 <input type="text" id='content' name='content' placeholder='{{post.content}}' class="form-control form" required>
             </div>
+            {% if tags %}
+            <div class="form-group">
+                {% for tag in tags %}
+                <div class="checkbox">
+                    <label for="{{tag.name}}"><input type="checkbox" name='{{tag.name}}' id='{{tag.name}}' value='{{tag.name}}'>{{tag.name}}</label>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="form-group text-right">
                 <a class="btn btn-outline-info" href='/posts/{{post.id}}'>Cancel</a>
                 <button class="btn btn-success" type='submit'>Edit</button>
