@@ -52,7 +52,7 @@ def add_user():
 def display_user(user_id):
     """ Display a user """
     user = User.query.get_or_404(user_id)
-    posts = Post.query.filter(Post.user_id == 1).all()
+    posts = Post.query.filter(Post.user_id == user_id).all()
     return render_template('/user.html', user=user, posts=posts)
 
 
@@ -91,7 +91,7 @@ def delete_user(user_id):
 
 @app.route('/users/<int:user_id>/posts/new')
 def create_post_form(user_id):
-    user = User.query.get_or_404(id=user_id)
+    user = User.query.get_or_404(user_id)
     return render_template('add_post.html', user=user)
 
 
