@@ -29,7 +29,7 @@ def home():
 @app.route('/users')
 def list_users():
     """ Show list of users """
-    users = User.query.all()
+    users = User.query.order_by(User.last_name).all()
     return render_template('base.html', users=users)
 
 
