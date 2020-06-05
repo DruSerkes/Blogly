@@ -5,7 +5,7 @@
 <h2 class="h2 mb-2">Edit a Tag</h2>
 <section id='form content' class="container text-left">
     <div class="row justify-content-center">
-        <form action="/tags/{{tag.id}}" method="POST" class='col-6 col-lg-4 py-3'>
+        <form action="/tags/{{tag.id}}/edit" method="POST" class='col-6 col-lg-4 py-3'>
             <div class="form-group">
                 <label for="name">{{tag.name}}</label>
                 <input type="text" id='name' name='name' placeholder='{{tag.name}}' class="form-control" required>

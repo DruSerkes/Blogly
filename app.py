@@ -157,3 +157,60 @@ def delete_post(post_id):
     Post.query.filter_by(id=post_id).delete()
     db.session.commit()
     return redirect('/users')
+
+
+# TAG ROUTES
+
+@app.route('/tags')
+def display_all_tags():
+    """ Display page with list of tags """ 
+    tags = Tag.query.all()
+    return render_template('/tags.html', tags=tags)
+
+@app.route('/tags/<int:tag_id>')
+def display_tag(tag_id):
+    """ Display details about a tag (lists all posts with tag) """
+    tag = Tag.query.get_or_404(tag_id)
+    posts = tag.post_tag
+    return render_template('/show_tag.html', posts=posts, tag=tag)
+
+@app.route('/tags/new')
+def create_tag_form():
+    """ Display form to create new tag """
+    return render_template('/add_tag.html')
+
+@app.route('/tags/new', methods=['POST'])
+def create_tag():
+    """ Creates new tag and redirects to tag list """
+    name = request.form['name']
+    tag = Tag(name=name)
+    db.session.add(tag)
+    db.session.commit()
+
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/edit')
+def edit_tag_form(tag_id):
+    """ Display form to edit tag """
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('/edit_tag.html', tag=tag)
+
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def edit_tag(tag_id):
+    """ Edits a tag """
+    name = request.form['name']
+
+    tag = Tag.query.get_or_404(tag_id)
+    tag.name = name
+
+    db.session.add(tag)
+    db.session.commit()
+    return redirect('/tags')
+
+
+@app.route('/tags/<int:tag_id>/delete', methods=['POST'])
+def delete_tag(tag_id):
+    """ Deletes a tag and redirects to tag list """
+    Tag.query.filter(Tag.id == tag_id).delete()
+    return redirect('/tags')

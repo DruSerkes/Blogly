@@ -6,11 +6,14 @@
 
 <h2 class="h2">Tags</h2>
 {% if tags %}
-<ul>
-    {% for tag in tags %}
-    <li class="list-item"><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
-    {% endfor %}
-</ul>
+<div class="container my-3">
+    <ul class='list-group'>
+        {% for tag in tags %}
+        <li class="list-group-item"><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% endif %}
 
 <a href="/tags/new" class="btn btn-primary text-white">Add Tag</a>
