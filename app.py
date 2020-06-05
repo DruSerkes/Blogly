@@ -2,7 +2,8 @@
 
 from flask import Flask, request, redirect, render_template, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag
+from helpers import tag_post
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -94,7 +95,8 @@ def delete_user(user_id):
 def create_post_form(user_id):
     """ Display form to create a post """ 
     user = User.query.get_or_404(user_id)
-    return render_template('add_post.html', user=user)
+    tags = Tag.query.all()
+    return render_template('add_post.html', user=user, tags=tags)
 
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
@@ -102,10 +104,15 @@ def create_post(user_id):
     """ Create a post and redirect to user page """
     title = request.form['title']
     content = request.form['content']
+    tags = request.form.getlist('tag')
 
     post = Post(title=title, content=content, user_id=user_id)
     db.session.add(post)
     db.session.commit()
+
+    tag_post(tags, post)
+    db.session.commit()
+
     return redirect(f'/users/{user_id}')
 
 
@@ -121,7 +128,8 @@ def display_post(post_id):
 def edit_post_form(post_id):
     """ Display form to edit a post """
     post = Post.query.get_or_404(post_id)
-    return render_template('/edit_post.html', post=post)
+    tags = Tag.query.all()
+    return render_template('/edit_post.html', post=post, tags=tags)
 
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
@@ -129,10 +137,13 @@ def edit_post(post_id):
     """ Edit a post """
     title = request.form['title']
     content = request.form['content']
+    tags = request.form.getlist('tag')
 
     post = Post.query.get_or_404(post_id)
     post.title = title
     post.content = content
+    tag_post(tags, post)
+
 
     db.session.add(post)
     db.session.commit()
