@@ -7,13 +7,16 @@
 <!-- TODO List 5 most recent blog posts with created by and time created  -->
 
 {% if posts %}
-<h2 class="display-2 my-0">Recent Posts</h2>
-{% for post in posts %}
-        <div class="container mb-4">
-                <h2 class='h2'>{{post.title}}</h2>
-                <p class='my-2'>{{post.content}}</p>
-        </div>
-{% endfor %}
-{% endif %}
+<section class="container">
+        <h2 class="display-2 mb-3 text-underline">Recent Posts</h2>
+        {% for post in posts %}
+                <div class="container mb-4">
+                        <h2 class='h2'>{{post.title}}</h2>
+                        <p class='my-2'>{{post.content}}</p>
+                </div>
+        {% endfor %}
+        {% endif %}
+</section>
+
 
 {% endblock %}
