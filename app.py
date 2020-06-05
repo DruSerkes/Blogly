@@ -109,14 +109,15 @@ def create_post(user_id):
 @app.route('/posts/<int:post_id>')
 def display_post(post_id):
     """ Display a post """
-    post = Post.query.get_or_404(id=post_id)
-    return render_template('post.html', post=post)
+    post = Post.query.get_or_404(post_id)
+    user = User.query.get(post.user_id)
+    return render_template('post.html', post=post, user=user)
 
 
 @app.route('/posts/<int:post_id>/edit')
 def edit_post_form(post_id):
     """ Display form to edit a post """
-    post = Post.query.get_or_404(id=post_id)
+    post = Post.query.get_or_404(post_id)
     return render_template('/edit_post.html', post=post)
 
 

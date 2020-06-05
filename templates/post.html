@@ -5,10 +5,12 @@
 {% block content %}
 
 <h2 class='h2'>{{post.title}}</h2>
-<p class='my-3'>{{post.content}}</p>
-<small><em>Written by {{user.get_full_name()}}</em></small>
-<a class="btn btn-outline-primary" href='/users/{{user.id}}'>Cancel</a>
-<a class="btn btn-primary text-white" href='/posts/{{post.id}}/edit'>Edit</a>
-<a class="btn btn-danger text-white" href='/posts/{{post.id}}/delete'>Delete</a>
+<p class='my-2'>{{post.content}}</p>
+<small class='d-block mt-1 mb-3'><em>Written by {{user.get_full_name()}}</em></small>
+<form action="/posts/{{post.id}}/delete" method="POST">
+    <a class="btn btn-outline-primary" href='/users/{{user.id}}'>Cancel</a>
+    <a class="btn btn-primary text-white" href='/posts/{{post.id}}/edit'>Edit</a>
+    <input type='submit' class="btn btn-danger text-white" value='Delete'>
+</form>
 
 {% endblock %}

@@ -7,12 +7,12 @@
     <div class="row justify-content-center">
         <form action="/posts/{{post.id}}/edit" method="POST" class='col-6 col-lg-4 py-3'>
             <div class="form-group">
-                <label for="first-name">Title</label>
-                <input type="text" id='first-name' name='first-name' placeholder='{{post.title}}' class="form-control" required>
+                <label for="title">Title</label>
+                <input type="text" id='title' name='title' placeholder='{{post.title}}' class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="last-name">Content</label>
-                <input type="text" id='last-name' name='last-name' placeholder='{{post.content}}' class="form-control form" required>
+                <label for="content">Content</label>
+                <input type="text" id='content' name='content' placeholder='{{post.content}}' class="form-control form" required>
             </div>
             <div class="form-group text-right">
                 <a class="btn btn-outline-info" href='/posts/{{post.id}}'>Cancel</a>
