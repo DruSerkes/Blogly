@@ -168,7 +168,7 @@ def delete_post(post_id):
 @app.route('/tags')
 def display_all_tags():
     """ Display page with list of tags """ 
-    tags = Tag.query.all()
+    tags = Tag.query.order_by(Tag.name).all()
     return render_template('/tags.html', tags=tags)
 
 @app.route('/tags/<int:tag_id>')
