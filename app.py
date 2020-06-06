@@ -19,8 +19,8 @@ db.create_all()
 
 @app.route('/')
 def home():
-    posts = Post.query.all()
-    posts = posts[-5:]
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    # posts = posts[-5:]
 
     users = User.query.all()
     return render_template('/home.html', posts=posts, pretty_date=pretty_date)
