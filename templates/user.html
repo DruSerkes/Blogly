@@ -22,6 +22,22 @@
                 {% endif %}
                 <a class="btn btn-primary text-white" href='/users/{{user.id}}/posts/new'>Add Post</a>
                 <a href="/users" class="btn btn-outline-info">Back</a>
+
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                {% if category == 'Success' %}
+                <div class="{{category}} container bg-success text-center my-3 rounded">
+                    <p class="text-dark h4 py-2">{{message}}</p>
+                </div>
+                {% else %}
+                <div class="{{category}} container bg-danger text-center my-3 rounded">
+                    <p class="text-dark h4 py-2">{{message}}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
             </div>
         </form>
     </div>    

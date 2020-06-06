@@ -111,12 +111,15 @@ def create_post(user_id):
 
     post = Post(title=title, content=content, user_id=user_id)
     db.session.add(post)
-    db.session.commit()
-
-    tag_post(tags, post)
-    db.session.commit()
-
-    return redirect(f'/users/{user_id}')
+    try:
+        db.session.commit()
+        tag_post(tags, post)
+        db.session.commit()
+        flash('Post successful', 'Success')
+        return redirect(f'/users/{user_id}')
+    except:
+        flash('Post unsuccessful - Please try again', 'Error')
+        return redirect(f'/users/{user_id}')
 
 
 @app.route('/posts/<int:post_id>')
