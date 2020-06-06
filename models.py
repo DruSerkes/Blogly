@@ -50,6 +50,8 @@ class Post(db.Model):
                            server_default=db.func.now())
     
     tags = db.relationship('Tag', secondary='post_tag', backref=db.backref('post_tag', lazy='dynamic'))
+    # tags = db.relationship('Tag', secondary='post_tag', backref='posts')
+
 
     def __repr__(self):
         return f'<Post: {self.title} by {self.users.get_full_name()}>'
@@ -72,13 +74,13 @@ class Tag(db.Model):
 class PostTag(db.Model): 
     __tablename__ = 'post_tag'
     
-    __table_args__ = (
-        db.PrimaryKeyConstraint("post_id", "tag_id"),
-    )
+    # __table_args__ = (
+    #     db.PrimaryKeyConstraint("post_id", "tag_id"),
+    # )
     
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id', ondelete='cascade'), primary_key=True)
     
-    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'))
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id', ondelete='cascade'), primary_key=True)
 
 
     # db.PrimaryKeyConstraint('post_id', 'tag_id')
