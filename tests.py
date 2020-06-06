@@ -41,7 +41,7 @@ class BloglyTestCase(TestCase):
             resp = client.get('/')
             html = resp.get_data(as_text=True)
 
-            self.assertEqual(resp.status_code, 302)
+            self.assertEqual(resp.status_code, 200)
 
     def test_list_users(self):
         with app.test_client() as client:

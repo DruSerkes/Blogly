@@ -50,7 +50,7 @@ def add_user():
     db.session.add(user)
     db.session.commit()
 
-    return redirect('/')
+    return redirect('/users')
 
 
 @app.route('/users/<int:user_id>')
@@ -124,8 +124,7 @@ def create_post(user_id):
 def display_post(post_id):
     """ Display a post """
     post = Post.query.get_or_404(post_id)
-    user = User.query.get(post.user_id)
-    return render_template('post.html', post=post, user=user)
+    return render_template('post.html', post=post)
 
 
 @app.route('/posts/<int:post_id>/edit')
