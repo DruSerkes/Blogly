@@ -3,7 +3,7 @@
 from flask import Flask, request, redirect, render_template, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
-from helpers import tag_post
+from helpers import tag_post, pretty_date
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -23,7 +23,7 @@ def home():
     posts = posts[-5:]
 
     users = User.query.all()
-    return render_template('/home.html', posts=posts, users=users)
+    return render_template('/home.html', posts=posts, pretty_date=pretty_date)
 
 # USER ROUTES 
 @app.route('/users')
