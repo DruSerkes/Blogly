@@ -57,8 +57,7 @@ def add_user():
 def display_user(user_id):
     """ Display a user """
     user = User.query.get_or_404(user_id)
-    posts = Post.query.filter(Post.user_id == user_id).all()
-    return render_template('/user.html', user=user, posts=posts)
+    return render_template('/user.html', user=user)
 
 
 @app.route('/users/<int:user_id>/edit')

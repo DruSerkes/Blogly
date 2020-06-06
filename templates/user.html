@@ -8,15 +8,15 @@
     <div class="row text-left">
         <img src="{{user.image_url}}" alt="user image" class='col-4'>
         <form class="col-6" action='/users/{{user.id}}/delete' method='POST'>
-            <h3 class="h3 col-6 px-2">{{user.get_full_name()}}</h3>
-            <a class="btn btn-primary m-2 col-2 text-white" href='/users/{{user.id}}/edit'>Edit</a>
-            <input type='submit' class="btn btn-danger m-2 col-2 text-white" value='Delete'></input>
+            <h3 class="h3">{{user.get_full_name()}}</h3>
+            <a class="btn btn-primary my-2 text-white" href='/users/{{user.id}}/edit'>Edit</a>
+            <input type='submit' class="btn btn-danger my-2 text-white" value='Delete'></input>
             <div class="posts">
                 <h3 class="h3">Posts</h3>
-                {% if posts %}
-                <ul class="post-list">
-                    {% for post in posts %}
-                    <li class="list-item"><a href="/posts/{{post.id}}"> {{post.title}} </a></li>
+                {% if user.posts %}
+                <ul class="list-group mb-2">
+                    {% for post in user.posts %}
+                    <li class="list-group-item"><a href="/posts/{{post.id}}"> {{post.title}} </a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
