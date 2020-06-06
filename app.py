@@ -217,3 +217,10 @@ def delete_tag(tag_id):
     """ Deletes a tag and redirects to tag list """
     Tag.query.filter(Tag.id == tag_id).delete()
     return redirect('/tags')
+
+
+# CUSTOM 404 PAGE 
+@app.errorhandler(404)
+def display_404():
+    """ Displays a custom error page when returning a 404 error """
+    return render_template('/error.html')
