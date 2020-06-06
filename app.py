@@ -221,6 +221,6 @@ def delete_tag(tag_id):
 
 # CUSTOM 404 PAGE 
 @app.errorhandler(404)
-def display_404():
+def display_404(error):
     """ Displays a custom error page when returning a 404 error """
-    return render_template('/error.html')
+    return render_template('/error.html'), 404
