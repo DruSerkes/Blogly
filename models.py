@@ -21,10 +21,13 @@ class User(db.Model):
 
     image_url = db.Column(db.String, default=None)
 
-    # posts = db.relationship('Post', cascade='all, delete')
+    posts = db.relationship('Post', backref='users')
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
+
+    def __repr__(self):
+        return f'<User: {self.get_full_name()}>'
 
 
 class Post(db.Model):
@@ -44,6 +47,9 @@ class Post(db.Model):
     
     tags = db.relationship('Tag', secondary='post_tag', backref=db.backref('post_tag', lazy='dynamic'))
 
+    def __repr__(self):
+        return f'<Post: {self.title} by {self.users.get_full_name()}>'
+
 
 
 class Tag(db.Model):
@@ -53,6 +59,9 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     name = db.Column(db.String(30), unique=True)
+
+    def __repr__(self):
+        return f'<Tag: {self.name}>'
 
 
 
@@ -67,15 +76,5 @@ class PostTag(db.Model):
     
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'))
 
+
     # db.PrimaryKeyConstraint('post_id', 'tag_id')
-
-
-# class PostTag(db.Model):
-#     """ Many to Many relationship between Posts and Tags """
-#     __tablename__ = 'post_tag'
-
-#     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
-
-#     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), nullable=False)
-
-#     db.PrimaryKeyConstraint('post_id', 'tag_id')  
