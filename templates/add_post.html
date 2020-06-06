@@ -12,13 +12,13 @@
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <input type="textarea" id='content' name='content' placeholder='Content goes here...' class="form-control form" required>
+                <textarea id='content' name='content' placeholder='Content goes here...' class="form-control form" required></textarea>
             </div>
             {% if tags %}
             <div class="form-group">
                 {% for tag in tags %}
                 <div class="checkbox">
-                    <label for="{{tag.name}}"><input type="checkbox" name='tag' id='{{tag.name}}' value='{{tag.name}}'>{{tag.name}}</label>
+                    <label for="{{tag.name}}"><input type="checkbox" name='tag' id='{{tag.name}}' value='{{tag.name}}'> {{tag.name}}</label>
                 </div>
                 {% endfor %}
             </div>

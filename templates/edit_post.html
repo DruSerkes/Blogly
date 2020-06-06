@@ -19,9 +19,9 @@
                 {% for tag in tags %}
                 <div class="checkbox">
                     {% if tag in post.tags %}
-                    <label for="{{tag.name}}"><input type="checkbox" name='tag' id='{{tag.name}}' value='{{tag.name}}' checked>{{tag.name}}</label>
+                    <label for="{{tag.name}}"><input type="checkbox" name='tag' id='{{tag.name}}' value='{{tag.name}}' checked> {{tag.name}}</label>
                     {% else %}
-                    <label for="{{tag.name}}"><input type="checkbox" name='tag' id='{{tag.name}}' value='{{tag.name}}'>{{tag.name}}</label>
+                    <label for="{{tag.name}}"><input type="checkbox" name='tag' id='{{tag.name}}' value='{{tag.name}}'> {{tag.name}}</label>
                     {% endif %}
                 </div>
                 {% endfor %}
