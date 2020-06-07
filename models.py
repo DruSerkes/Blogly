@@ -49,8 +49,8 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=db.func.now())
     
-    tags = db.relationship('Tag', secondary='post_tag', backref=db.backref('post_tag', lazy='dynamic'))
-    # tags = db.relationship('Tag', secondary='post_tag', backref='posts')
+    # tags = db.relationship('Tag', secondary='post_tag', backref=db.backref('post_tag', lazy='dynamic'))
+    tags = db.relationship('Tag', secondary='post_tag', backref='posts')
 
 
     def __repr__(self):
@@ -81,6 +81,3 @@ class PostTag(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id', ondelete='cascade'), primary_key=True)
     
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id', ondelete='cascade'), primary_key=True)
-
-
-    # db.PrimaryKeyConstraint('post_id', 'tag_id')

@@ -13,7 +13,7 @@ def tag_post(tags, post):
         # Use tag name to find tag in db 
         tag = Tag.query.filter(Tag.name == tag).one()
         # Add new post to a tag 
-        tag.post_tag.append(post)
+        post.tags.append(tag)
 
 
 def pretty_date(time=False):

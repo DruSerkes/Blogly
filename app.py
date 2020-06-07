@@ -158,10 +158,12 @@ def edit_post(post_id):
 
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
-    """ Delete a post """
+    """ Delete a post and Redirects to user """
+    post = Post.query.get(post_id)
+    user_id = post.users.id
     Post.query.filter_by(id=post_id).delete()
     db.session.commit()
-    return redirect('/users')
+    return redirect(f'/users/{user_id}')
 
 
 # TAG ROUTES
@@ -176,8 +178,7 @@ def display_all_tags():
 def display_tag(tag_id):
     """ Display details about a tag (lists all posts with tag) """
     tag = Tag.query.get_or_404(tag_id)
-    posts = tag.post_tag
-    return render_template('/show_tag.html', posts=posts, tag=tag)
+    return render_template('/show_tag.html', tag=tag)
 
 @app.route('/tags/new')
 def create_tag_form():
@@ -218,6 +219,7 @@ def edit_tag(tag_id):
 def delete_tag(tag_id):
     """ Deletes a tag and redirects to tag list """
     Tag.query.filter(Tag.id == tag_id).delete()
+    db.session.commit()
     return redirect('/tags')
 
 

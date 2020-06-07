@@ -5,13 +5,15 @@
 {% block content %}
 
 <h2 class="h2">{{tag.name}}</h2>
-{% if tag.post_tag %}
+{% if tag.posts %}
 <div class="container my-3">
-    <ul class='list-group'>
-        {% for post in tag.post_tag %}
-        <li class="list-group-item"><a href="/posts/{{post.id}}">{{post.title}}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="row justify-content-center">
+        <ul class='list-group col-4 my-3'>
+            {% for post in tag.posts %}
+            <li class="list-group-item"><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endif %}
 <form action="/tags/{{tag.id}}/delete" method='POST'>

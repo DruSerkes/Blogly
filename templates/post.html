@@ -8,11 +8,14 @@
 <p class='my-2'>{{post.content}}</p>
 <small class='d-block mt-1 mb-3'><em>Written by {{post.users.get_full_name()}}</em></small>
 
+{% if post.tags %}
 <p>Tags: 
     {% for tag in post.tags %}
     <span class="badge badge-primary mx-1">{{tag.name}}</span>
     {% endfor %}
 </p>
+{% endif %}
+
 <form action="/posts/{{post.id}}/delete" method="POST">
     <a class="btn btn-outline-primary" href='/users/{{post.users.id}}'>Cancel</a>
     <a class="btn btn-primary text-white" href='/posts/{{post.id}}/edit'>Edit</a>
