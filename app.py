@@ -3,7 +3,7 @@
 from flask import Flask, request, redirect, render_template, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
-from helpers import tag_post, pretty_date
+from helpers import tag_post, pretty_date, add_posts_to_tag
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -183,7 +183,8 @@ def display_tag(tag_id):
 @app.route('/tags/new')
 def create_tag_form():
     """ Display form to create new tag """
-    return render_template('/add_tag.html')
+    posts = Post.query.all()
+    return render_template('/add_tag.html', posts=posts)
 
 @app.route('/tags/new', methods=['POST'])
 def create_tag():
@@ -191,7 +192,14 @@ def create_tag():
     name = request.form['name']
     tag = Tag(name=name)
     db.session.add(tag)
-    db.session.commit()
+    
+    try:
+        db.session.commit()
+        post_titles = request.form.getlist('posts')
+        add_posts_to_tag(tag, post_titles)
+        db.session.commit()
+    except: 
+        db.session.rollback()
 
     return redirect('/tags')
 
@@ -199,7 +207,8 @@ def create_tag():
 def edit_tag_form(tag_id):
     """ Display form to edit tag """
     tag = Tag.query.get_or_404(tag_id)
-    return render_template('/edit_tag.html', tag=tag)
+    all_posts = Post.query.all()
+    return render_template('/edit_tag.html', tag=tag, all_posts=all_posts)
 
 
 @app.route('/tags/<int:tag_id>/edit', methods=['POST'])
@@ -211,7 +220,14 @@ def edit_tag(tag_id):
     tag.name = name
 
     db.session.add(tag)
-    db.session.commit()
+    try:
+        db.session.commit()
+        post_titles = request.form.getlist('posts')
+        add_posts_to_tag(tag, post_titles)
+        db.session.commit()
+    except: 
+        db.session.rollback()
+
     return redirect('/tags')
 
 

@@ -10,6 +10,15 @@
                 <label for="name">Name</label>
                 <input type="text" id='name' name='name' placeholder='Enter a name for the tag' class="form-control" required>
             </div>
+            {% if posts %}
+            <div class="form-group">
+                {% for post in posts %}
+                <div class="checkbox">
+                    <label for="{{post.title}}"><input type="checkbox" name='posts' id='{{post.title}}' value='{{post.title}}'> {{post.title}}</label>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="form-group text-right">
                 <a class="btn btn-info text-white" href='/tags'>Cancel</a>
                 <input type="submit" class="btn btn-success" value='Add'>

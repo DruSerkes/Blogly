@@ -1,4 +1,4 @@
-from models import Tag, PostTag
+from models import Tag, PostTag, Post
 
 def tag_post(tags, post):
     """ 
@@ -14,6 +14,21 @@ def tag_post(tags, post):
         tag = Tag.query.filter(Tag.name == tag).one()
         # Add new post to a tag 
         post.tags.append(tag)
+
+
+def add_posts_to_tag(tag, post_titles):
+    """
+    Expects array of post titles and a tag
+    Connects tag and selected posts through post_tag relationship 
+    * Similar to tag_post but backwards * 
+    """
+    PostTag.query.filter(PostTag.tag_id == tag.id).delete() 
+
+    for title in post_titles:
+        post = Post.query.filter(Post.title == title).one()
+        tag.posts.append(post)
+
+
 
 
 def pretty_date(time=False):

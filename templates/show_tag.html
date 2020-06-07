@@ -4,9 +4,10 @@
 
 {% block content %}
 
-<h2 class="h2">{{tag.name}}</h2>
+<h2 class="h2">Tag: <em>{{tag.name}}</em></h2>
 {% if tag.posts %}
-<div class="container my-3">
+<h4 class='h4 text-secondary mt-5 mb-0'>Posts</h4>
+<div class="container mb-3">
     <div class="row justify-content-center">
         <ul class='list-group col-4 my-3'>
             {% for post in tag.posts %}
