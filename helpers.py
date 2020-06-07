@@ -16,16 +16,16 @@ def tag_post(tags, post):
         post.tags.append(tag)
 
 
-def add_posts_to_tag(tag, post_titles):
+def add_posts_to_tag(tag, post_ids):
     """
-    Expects array of post titles and a tag
+    Expects array of post ids and a tag
     Connects tag and selected posts through post_tag relationship 
     * Similar to tag_post but backwards * 
     """
     PostTag.query.filter(PostTag.tag_id == tag.id).delete() 
 
-    for title in post_titles:
-        post = Post.query.filter(Post.title == title).one()
+    for id in post_ids:
+        post = Post.query.filter(Post.id == id).one()
         tag.posts.append(post)
 
 

@@ -15,11 +15,11 @@
                 {% for post in all_posts %}
                 {% if post in tag.posts %}
                 <div class="checkbox">
-                    <label for="{{post.title}}"><input type="checkbox" name='posts' id='{{post.title}}' value='{{post.title}}' checked> {{post.title}}</label>
+                    <label for="{{post.title}}"><input type="checkbox" name='posts' id='{{post.title}}' value='{{post.id}}' checked> {{post.title}}</label>
                 </div>
                 {% else %}
                 <div class="checkbox">
-                    <label for="{{post.title}}"><input type="checkbox" name='posts' id='{{post.title}}' value='{{post.title}}'> {{post.title}}</label>
+                    <label for="{{post.title}}"><input type="checkbox" name='posts' id='{{post.title}}' value='{{post.id}}'> {{post.title}}</label>
                 </div>
                 {% endif %}
                 {% endfor %}
